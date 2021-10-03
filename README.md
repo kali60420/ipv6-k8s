@@ -1,4 +1,36 @@
+/etc/hosts
+
 # ipv6-k8s
+
+2001:db8:1234:5678::1   raspberrypi
+2a00:1098:0008:0182:0000:0000:0000:0001        rpi-8-2
+2a00:1098:0008:0182:0000:0000:0000:0002        rpi-8-2-gateway
+10.74.8.9        rpi-8-2
+10.74.8.10        rpi-8-2-gateway
+
+
+127.0.0.1    localhost raspberrypi
+::1        localhost ip6-localhost ip6-loopback raspberrypi
+ff02::1        ip6-allnodes
+ff02::2        ip6-allrouters
+
+2606:4700::6810:1423 registry.yarnpkg.com
+2606:4700::6810:1423 registry.npmjs.org
+2606:4700::6810:ab63 yarnpkg.com
+
+/etc/network/interfaces.d/eth0
+
+auto eth0.1
+iface eth0.1 inet6 static
+        address 2001:db8:1234:5678::1
+        netmask 64
+        up ip -6 route add to 2001:db8:1234:5678::2 via 2001:db8:1234:5678::3 dev eth0.1
+
+iface eth0.1 inet6 static
+        address 2001:db8:1234:5678::4
+        netmask 64
+        
+        
 
 setting up magento on k8s ipv6, arm64 (rpi 4)
 
