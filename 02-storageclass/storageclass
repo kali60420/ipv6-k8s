@@ -1,6 +1,3 @@
-helm install nfs-subdir-external-provisioner nfs-subdir-external-provisioner/nfs-subdir-external-provisioner \
-    --set nfs.server=2a00:1098:0008:0183:0000:0000:0000:0001 \
-    --set nfs.path=/mnt/nfsdir \
-    --set nfs.mountOptions={nfsvers=nolock}
+helm install nfs-subdir-external-provisioner nfs-subdir-external-provisioner/nfs-subdir-external-provisioner --set nfs.server=2a00:1098:0008:0183:0000:0000:0000:0001 --set nfs.path=/mnt/nfsdir --set 'nfs.mountOptions={nolock}'
 
 kubectl patch storageclass nfs-client -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
