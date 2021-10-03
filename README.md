@@ -2,13 +2,13 @@
 
 setting up magento on k8s ipv6, arm64 (rpi 4)
 
-**1. install k8s for ipv6: https://github.com/zhlsunshine/k8s-ipv6
-**
+1. install k8s for ipv6: https://github.com/zhlsunshine/k8s-ipv6
+
 kubeadm init --config=./01-k8s-ipv6/init.yaml
 kubectl apply -f ./01-k8s-ipv6/calico-ipv6.yaml
 
-**2. install nfs-subdir-external-provisioner: https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner
-   add default storageclass as nfs-client (requires NFS Server / Storage solution)**
+2. install nfs-subdir-external-provisioner: https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner
+   add default storageclass as nfs-client (requires NFS Server / Storage solution)
   
 helm repo add nfs-subdir-external-provisioner https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/
 
@@ -17,8 +17,8 @@ helm install nfs-subdir-external-provisioner nfs-subdir-external-provisioner/nfs
     --set nfs.path=/mnt/nfsdir \
     --set 'nfs.mountOptions={nolock}'
    
-**3. install metallb with ipv6 addresses
-**
+3. install metallb with ipv6 addresses
+
 kubectl get configmap kube-proxy -n kube-system -o yaml | \
 sed -e "s/strictARP: false/strictARP: true/" | \
 kubectl diff -f - -n kube-system
@@ -33,12 +33,12 @@ kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.10.2/manif
 
 kubectl apply -f ./03-storageclass/namespace.yaml
 
-**4. install nginx-ingress
-**
+4. install nginx-ingress
+
 kubectl create namespace ingress-nginx
 
 helm install syntak-ingress ingress-nginx/ingress-nginx -n ingress-nginx --values ./04-ingress/ingress-nginx.yaml
 
-**5. install magento (create image on arm64, run make step-3)
-**
+5. install magento (create image on arm64, run make step-3)
+
 cd ./05-magento && make step-3
