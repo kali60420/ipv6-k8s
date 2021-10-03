@@ -18,12 +18,10 @@ helm install nfs-subdir-external-provisioner nfs-subdir-external-provisioner/nfs
    
 3. install metallb with ipv6 addresses
 
-# see what changes would be made, returns nonzero returncode if different
 kubectl get configmap kube-proxy -n kube-system -o yaml | \
 sed -e "s/strictARP: false/strictARP: true/" | \
 kubectl diff -f - -n kube-system
 
-# actually apply the changes, returns nonzero returncode on errors only
 kubectl get configmap kube-proxy -n kube-system -o yaml | \
 sed -e "s/strictARP: false/strictARP: true/" | \
 kubectl apply -f - -n kube-system
